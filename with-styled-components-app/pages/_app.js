@@ -5,14 +5,18 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: #f1f1f1;
   }
 `
 
 const theme = {
   colors: {
-    primary: '#0070f3',
+    primary: '#407294',
   },
 }
+
+
+
 
 export default function App({ Component, pageProps }) {
   return (

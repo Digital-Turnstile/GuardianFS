@@ -1,9 +1,52 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
+import Input from '../Components/Input'
+
 
 const Title = styled.h1`
   font-size: 50px;
   color: ${({ theme }) => theme.colors.primary};
+`
+
+const NameTitle = styled.h1`
+  color: red;
+`
+
+const Button = styled.button`
+  border-radius: 4px;
+  background: #407294;
+  white-space: nowrap;
+  padding: 10px 20px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 2px 5px 5px 0px #40729450;
+  margin-right: 10px;
+
+
+  &:hover {
+    transition: all .1s ease-in-out;
+    box-shadow: 4px 10px 10px 0px #40729480;
+  }
+`
+
+const Card = styled.div`
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 2px 5px 5px 0px #40729450;
+  width: 500px;
+  height: 400px;
+  padding: 20px;
+  margin: auto;
+  margin-top: 200px;
+`
+
+const NameCard = styled.div`
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 2px 5px 5px 0px #40729450;
+  padding: 20px;
 `
 
 
@@ -43,15 +86,23 @@ export default function Home() {
 
 
   return <>
-    <p>All names:</p>
-    <button onClick={getNames}>refresh</button>
-    <p>add a name</p>
-    <input type="text" placeholder="J" value={name} onChange={val => setName(val.target.value)}></input>
-    <button onClick={addAName}>Sumbit</button>
+    <Card>
+    <NameTitle>Names</NameTitle>
+      <Input
+        type="text"
+        label="enter a name"
+        value={name}
+        onChange={val => setName(val)}
+      />
+      <p>add a name</p>
+        <Button onClick={addAName}>Sumbit</Button>
+        <Button onClick={getNames}>refresh</Button>
+    </Card>
+      
 
-    {
-      nameList.map((n, i) => <p key={i}>{n}</p>)
-    }
+      {
+        nameList.map((n, i) => <NameCard key={i}>{n}</NameCard>)
+      }
 
 
 
