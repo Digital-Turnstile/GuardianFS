@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import Input from '../Components/Input'
 
@@ -16,13 +16,14 @@ const Button = styled.button`
   border-radius: 4px;
   background: #407294;
   white-space: nowrap;
-  padding: 10px 20px;
+  padding: ${({big}) => big ? `10px 20px` : `5px 10px`};
   color: #fff;
   outline: none;
   border: none;
   cursor: pointer;
   box-shadow: 2px 5px 5px 0px #40729450;
   margin-right: 10px;
+  float: ${({big}) => big ? 'none' : 'right'};
 
 
   &:hover {
@@ -54,7 +55,6 @@ const NameCardContainer = styled.div`
     width: 8px;
   }
   
-  
   ::-webkit-scrollbar-thumb {
     background: #407294;
     border-radius: 10px;
@@ -67,9 +67,9 @@ const NameCard = styled.div`
   border-radius: 10px;
   background: #fff;
   box-shadow: 2px 5px 5px 0px #40729450;
-  padding: 20px;
+  padding: 10px;
   margin-bottom: 10px;
-
+  height: 25px;
 `
 
 
@@ -78,6 +78,7 @@ const NameCard = styled.div`
 export default function Home() {
   const [name, setName] = useState("");
   const [nameList, setNameList] = useState([])
+
 
   function getNames() {
     return fetch('http://localhost:3000', {
@@ -101,12 +102,25 @@ export default function Home() {
     }).then(res => {
       console.log(res)
       console.log(name)
+      getNames();
       return 0;
 
     })
   }
 
-
+  function deleteAName(deleteName){
+    return fetch('http://localhost:3000', {
+      method: "Delete",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({name: deleteName}),
+    }).then(res => {
+      console.log(res)
+      getNames();
+      return 0;
+    })
+  }
 
   return <>
     <Card>
@@ -118,13 +132,13 @@ export default function Home() {
         onChange={val => setName(val)}
       />
       <p>add a name</p>
-        <Button onClick={addAName}>Sumbit</Button>
-        <Button onClick={getNames}>refresh</Button>
+        <Button big onClick={addAName}>Sumbit</Button>
+        <Button big onClick={getNames}>refresh</Button>
     </Card>
       
     <NameCardContainer>
       {
-        nameList.map((n, i) => <NameCard key={i}>{n}</NameCard>)
+        nameList.map((n, i) => <NameCard key={i}>{n}<Button onClick={() => deleteAName(n)}>Delete</Button></NameCard>)
       }
     </NameCardContainer>
   </>
