@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import Input from '../Components/Input'
+import { ZoomIn } from 'animate-css-styled-components';
 
 
 const Title = styled.h1`
@@ -88,6 +89,7 @@ export default function Home() {
       }
     }).then(res => {
         res.json().then(res => setNameList(res.names))
+        console.log(nameList)
     })
   }
 
@@ -138,7 +140,14 @@ export default function Home() {
       
     <NameCardContainer>
       {
-        nameList.map((n, i) => <NameCard key={i}>{n}<Button onClick={() => deleteAName(n)}>Delete</Button></NameCard>)
+        nameList.map((n, i) => {
+          return<ZoomIn key={i} duration="0.3s" delay={i * .02 + "s"}>
+            <NameCard>
+              {n}
+              <Button onClick={() => deleteAName(n)}>Delete</Button>
+            </NameCard>
+          </ZoomIn>
+      })
       }
     </NameCardContainer>
   </>
