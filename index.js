@@ -36,8 +36,12 @@ app.get('/', function(req, res){
 app.post('/', function(req, res){
     let name = req.body.name;
     console.log(req.body)
-    names.push(name);
-    res.status(200).json({message: 'success'});
+    if(name){
+        names.push(name);
+        res.status(200).json({message: 'success'});
+    } else {
+        res.status(500).json({message: 'no name specified'});
+    }
 })
 
 //Delete a name

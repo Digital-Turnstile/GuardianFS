@@ -36,10 +36,31 @@ const Card = styled.div`
   background: #fff;
   box-shadow: 2px 5px 5px 0px #40729450;
   width: 500px;
-  height: 400px;
+  height: 240px;
   padding: 20px;
   margin: auto;
-  margin-top: 200px;
+  margin-top: 100px;
+  margin-bottom: 10px;
+`
+
+const NameCardContainer = styled.div`
+  width: 500px;
+  height: 560px;
+  padding: 20px;
+  margin: auto;
+  overflow: scroll;
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  
+  ::-webkit-scrollbar-thumb {
+    background: #407294;
+    border-radius: 10px;
+  }
+
+
 `
 
 const NameCard = styled.div`
@@ -47,6 +68,8 @@ const NameCard = styled.div`
   background: #fff;
   box-shadow: 2px 5px 5px 0px #40729450;
   padding: 20px;
+  margin-bottom: 10px;
+
 `
 
 
@@ -99,12 +122,10 @@ export default function Home() {
         <Button onClick={getNames}>refresh</Button>
     </Card>
       
-
+    <NameCardContainer>
       {
         nameList.map((n, i) => <NameCard key={i}>{n}</NameCard>)
       }
-
-
-
+    </NameCardContainer>
   </>
 }
